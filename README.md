@@ -14,3 +14,12 @@ ansible-galaxy install -r requirements.yml
 vagrant up
 ```
 
+## Edit /etc/hosts
+
+Add an entry for drupal.me.ca in /etc/hosts file
+```
+192.168.168.168 drupal.me.ca
+```
+
+## Site URL
+http://drupal.me.ca
