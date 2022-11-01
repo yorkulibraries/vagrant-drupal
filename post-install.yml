@@ -1,0 +1,37 @@
+---
+- hosts: webserver,vagrant-drupal
+  vars_files:
+    - vars/main.yml
+
+  tasks:
+    - name: set group www-data for "{{ drupal_composer_install_dir }}/web"
+      ansible.builtin.file:
+        path: "{{ drupal_composer_install_dir }}/web"
+        state: directory
+        recurse: yes
+        group: www-data
+      become: yes
+
+    - name: install bootstrap_barrio theme
+      command: "composer require drupal/bootstrap_barrio"
+      args:
+        chdir: "{{ drupal_composer_install_dir }}"
+      become: no
+
+    - name: Enable Bootstrap Barrio theme 
+      command: "drush -y --root={{ drupal_core_path }} theme:enable bootstrap_barrio_subtheme"
+      args:
+        chdir: "{{ drupal_core_path }}"
+      become: no
+
+    - name: Set Bootstrap Barrio theme as default
+      command: "drush -y --root={{ drupal_core_path }} cset system.theme default bootstrap_barrio_subtheme"
+      args:
+        chdir: "{{ drupal_core_path }}"
+      become: no
+
+    - name: drush rebuild cache
+      command: "drush cr --root={{ drupal_core_path }}"
+      args:
+        chdir: "{{ drupal_core_path }}"
+      become: no

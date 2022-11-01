@@ -1,0 +1,21 @@
+drupal_install_site: true
+drupal_build_composer_project: true
+drupal_composer_install_dir: "/var/www/drupal"
+drupal_core_path: "{{ drupal_composer_install_dir }}/web"
+drupal_domain: "drupal.me.ca"
+
+mysql_databases:
+  - name: "drupal"
+mysql_users:
+  - name: "drupal"
+    host: "localhost"
+    password: "drupal"
+    priv: "drupal.*:ALL"
+
+php_version: '7.4'
+php_packages_extra: 
+  - libapache2-mod-php{{ php_version }}
+
+apache_vhosts:
+  - servername: "{{ drupal_domain }}"
+    documentroot: "{{ drupal_core_path }}"

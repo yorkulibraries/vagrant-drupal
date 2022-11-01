@@ -1,0 +1,32 @@
+- src: geerlingguy.php-mysql
+  version: 2.1.0
+
+- src: geerlingguy.apache
+  version: 3.0.0
+
+- src: geerlingguy.php-versions
+  version: 4.1.0
+
+- src: geerlingguy.php
+  version: 4.8.0
+
+- src: geerlingguy.composer
+  version: 1.9.2
+
+- src: geerlingguy.git
+  version: 2.1.0
+
+- src: geerlingguy.mysql
+  version: 3.5.1
+
+- src: geerlingguy.solr
+  version: 5.4.1
+
+- src: geerlingguy.java
+  version: 1.10.0
+
+- src: geerlingguy.drupal
+  version: 4.3.0
+
+- src: geerlingguy.drush
+  version: 3.1.1
