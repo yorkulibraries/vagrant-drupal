@@ -31,7 +31,7 @@ User: admin
 Pass: admin
 ```
 
-# Making changes to the yudl_barrio theme
+# Making changes to yudl_barrio theme
 
 Cache has been disabled so you DON'T have to clear cache whenever you make changes.
 
