@@ -23,3 +23,9 @@ Add an entry for drupal.me.ca in /etc/hosts file
 
 ## Site URL
 http://drupal.me.ca
+
+## Admin 
+```
+User: admin
+Pass: admin
+```
