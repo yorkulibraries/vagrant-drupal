@@ -18,4 +18,7 @@ Vagrant.configure("2") do |config|
     } 
 
   end 
+
+  config.vm.synced_folder "custom", "/var/www/drupal/web/themes/custom", create: true, mount_options: ["dmode=775,fmode=664"], fsnotify: true, exclude: []
+  
 end

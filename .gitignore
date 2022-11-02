@@ -1,3 +1,5 @@
 .vagrant
 roles/external
 linux_playbooks
+custom/*
+!custom/.gitkeep 

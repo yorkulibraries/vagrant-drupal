@@ -4,13 +4,6 @@
     - vars/main.yml
 
   tasks:
-    - name: set group www-data for "{{ drupal_composer_install_dir }}/web"
-      ansible.builtin.file:
-        path: "{{ drupal_composer_install_dir }}/web"
-        state: directory
-        recurse: yes
-        group: www-data
-      become: yes
 
     - name: install bootstrap_barrio theme
       command: "composer require drupal/bootstrap_barrio"
@@ -18,17 +11,57 @@
         chdir: "{{ drupal_composer_install_dir }}"
       become: no
 
+    - name: add x mode for "{{ drupal_composer_install_dir }}/web/themes/contrib/bootstrap_barrio/scripts/create_subtheme.sh"
+      ansible.builtin.file:
+        path: "{{ drupal_composer_install_dir }}/web/themes/contrib/bootstrap_barrio/scripts/create_subtheme.sh"
+        mode: u=rx
+      become: yes 
+
     - name: Enable Bootstrap Barrio theme 
-      command: "drush -y --root={{ drupal_core_path }} theme:enable bootstrap_barrio_subtheme"
+      command: "drush -y --root={{ drupal_core_path }} theme:enable yudl_barrio"
       args:
         chdir: "{{ drupal_core_path }}"
       become: no
 
-    - name: Set Bootstrap Barrio theme as default
-      command: "drush -y --root={{ drupal_core_path }} cset system.theme default bootstrap_barrio_subtheme"
+    - name: Set YUDL Barrio theme as default
+      command: "drush -y --root={{ drupal_core_path }} cset system.theme default yudl_barrio"
       args:
         chdir: "{{ drupal_core_path }}"
       become: no
+
+    - name: make sure "{{ drupal_composer_install_dir }}/web" is writable by owner
+      ansible.builtin.file:
+        path: "{{ drupal_composer_install_dir }}/web"
+        state: directory
+        recurse: yes
+        mode: u+w
+      become: yes    
+
+    - name: copy templates/settings.local.php to sites/default/settings.local.php
+      copy:
+        src: "templates/settings.local.php"
+        dest: "{{ drupal_composer_install_dir }}/web/sites/default/settings.local.php"
+        force: yes
+    
+    - name: copy templates/development.services.yml to "{{ drupal_composer_install_dir }}/web/sites/development.services.yml"
+      copy:
+        src: "templates/development.services.yml"
+        dest: "{{ drupal_composer_install_dir }}/web/sites/development.services.yml"
+        force: yes  
+
+    - name: uncomment a line in "{{ drupal_composer_install_dir }}/web/sites/default/settings.php" to include settings.local.php 
+      lineinfile:
+        path: "{{ drupal_composer_install_dir }}/web/sites/default/settings.php"
+        line: "include $app_root . '/' . $site_path . '/settings.local.php';"
+        insertbefore: '^\$databases'
+
+    - name: set group www-data for "{{ drupal_composer_install_dir }}/web"
+      ansible.builtin.file:
+        path: "{{ drupal_composer_install_dir }}/web"
+        state: directory
+        recurse: yes
+        group: www-data
+      become: yes  
 
     - name: drush rebuild cache
       command: "drush cr --root={{ drupal_core_path }}"
