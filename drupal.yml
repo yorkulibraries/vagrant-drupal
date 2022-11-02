@@ -5,16 +5,6 @@
   vars_files:
     - vars/main.yml
 
-  tasks:
-    - name: set owner vagrant:www-data for "{{ drupal_composer_install_dir }}"
-      ansible.builtin.file:
-        path: "{{ drupal_composer_install_dir }}"
-        state: directory
-        recurse: yes
-        owner: vagrant
-        group: www-data
-      become: yes  
-
   roles:
     - geerlingguy.mysql
     - geerlingguy.apache
