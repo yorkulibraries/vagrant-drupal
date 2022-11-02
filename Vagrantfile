@@ -23,6 +23,6 @@ Vagrant.configure("2") do |config|
     File.exist?(".vagrant/machines/#{vm_name}/#{provider}/action_provision")
   end
 
-  config.vm.synced_folder "custom", "/var/www/drupal/web/themes/custom", create: false, mount_options: ["dmode=775,fmode=664"], fsnotify: true, exclude: [] if provisioned? 'vagrant-drupal'
+  config.vm.synced_folder "custom", "/var/www/drupal/web/themes/custom", create: false, mount_options: ["dmode=775,fmode=664"], fsnotify: true, exclude: []
   
 end
