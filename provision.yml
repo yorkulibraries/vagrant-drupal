@@ -1,5 +1,5 @@
 ---
 
-- import_playbook: linux_playbooks/basic_setup.yml
+#- import_playbook: linux_playbooks/basic_setup.yml
 - import_playbook: drupal.yml
 - import_playbook: post-install.yml
