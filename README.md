@@ -37,5 +37,5 @@ Cache has been disabled so you DON'T have to clear cache whenever you make chang
 
 The folder **custom** is sync'ed with **/var/www/drupal/web/themes/custom/** so any changes to this folder is reflected on the site.
 
-You should be able to make changes to the **/var/www/drupal/web/themes/custom/yudl_barrio/** files to see the changes reflected immediately.
+You should be able to make changes to the **custom/yudl_barrio/** files to see the changes reflected immediately.
 
