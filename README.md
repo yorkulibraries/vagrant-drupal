@@ -1,5 +1,5 @@
 # vagrant-drupal
-Setup a box with drupal
+Setup a box with drupal and Bootstrap Barrio theme for development. This is a slightly simpler setup than [Drupal VM](https://www.drupalvm.com/).
 
 ## Installation
 ```
